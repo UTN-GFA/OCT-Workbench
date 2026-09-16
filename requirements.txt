@@ -1,0 +1,6 @@
+# Runtime dependencies for OCT Workbench
+numpy
+matplotlib
+PyQt5
+h5py
+scipy

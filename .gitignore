@@ -1,0 +1,14 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Generated test artifacts; source fixtures remain versionable explicitly
+/test_data/*
+!/test_data/.gitkeep
+
+# Local build/package output
+/build/
+/dist/
+*.egg-info/
