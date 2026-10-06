@@ -288,6 +288,14 @@ class PluginTransform(Transform):
             raise PluginValidationError(f"{self.spec.id}: cambió la máscara")
         self._validate_array_dict(source, result, "profiles")
         self._validate_array_dict(source, result, "profile_depth_axes_m")
+        if (source.spectra is None) != (result.spectra is None):
+            raise PluginValidationError(f"{self.spec.id}: no puede crear o eliminar espectros")
+        if source.spectra is not None:
+            if self.spec.changes_point_count:
+                if result.spectra.ndim != source.spectra.ndim or result.spectra.shape[1:] != source.spectra.shape[1:] or result.spectra.shape[0] != result.n_points:
+                    raise PluginValidationError(f"{self.spec.id}: espectros no acompañan el número de puntos")
+            elif not np.array_equal(source.spectra, result.spectra, equal_nan=True):
+                raise PluginValidationError(f"{self.spec.id}: cambió los espectros")
 
     def _validate_array_dict(self, source: TransformData, result: TransformData, field: str) -> None:
         source_values = getattr(source, field)
@@ -299,7 +307,7 @@ class PluginTransform(Transform):
         for key in source_values:
             source_array = np.asarray(source_values[key])
             result_array = np.asarray(result_values[key])
-            if self.spec.changes_point_count:
+            if self.spec.changes_point_count and field == "profiles":
                 if source_array.ndim == 0 or result_array.ndim != source_array.ndim or result_array.shape[1:] != source_array.shape[1:] or result_array.shape[0] != result.n_points:
                     raise PluginValidationError(f"{self.spec.id}: cambió la estructura de {field}")
             elif not np.array_equal(source_array, result_array, equal_nan=True):

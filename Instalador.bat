@@ -125,7 +125,7 @@ echo Instalacion completada correctamente
 echo ==========================================
 echo.
 echo Para ejecutar la GUI:
-echo   .venv\Scripts\python.exe oct_workbench_gui.py
+echo   .venv\Scripts\python.exe main.py
 echo.
 pause
 endlocal

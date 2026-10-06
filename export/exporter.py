@@ -87,7 +87,10 @@ def _resolve_to_data(source: Source) -> Dict[str, Any]:
         data["depth_source_key"] = "depth_m"
     if amplitude is not None:
         data["amplitude"] = np.asarray(amplitude)
-    if ds is not None and ds.spectra is not None:
+    if isinstance(source, TransformedView):
+        if td.spectra is not None:
+            data["spectra"] = td.spectra
+    elif ds is not None and ds.spectra is not None:
         data["spectra"] = ds.spectra
     if windows:
         data["win_depth_min_m"] = np.asarray([window.z_min for window in windows]) / 1000.0

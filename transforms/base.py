@@ -36,6 +36,7 @@ class TransformData:
     coordinate_tolerances_mm: Optional[Dict[str, float]] = None
     depth_mm: Optional[np.ndarray] = None       # (n_pts, M, N_win)
     amplitude: Optional[np.ndarray] = None # (n_pts, M, N_win)
+    spectra: Optional[np.ndarray] = None   # (n_pts, M, K) or (n_pts, K)
     profiles: Optional[Dict[int, np.ndarray]] = None
     profile_depth_axes_m: Optional[Dict[int, np.ndarray]] = None
     mask: Optional[np.ndarray] = None      # (n_pts,) bool — True = válido
@@ -53,6 +54,7 @@ class TransformData:
             coordinate_tolerances_mm=copy.deepcopy(self.coordinate_tolerances_mm),
             depth_mm=self.depth_mm.copy() if self.depth_mm is not None else None,
             amplitude=self.amplitude.copy() if self.amplitude is not None else None,
+            spectra=self.spectra.copy() if self.spectra is not None else None,
             profiles={key: value.copy() for key, value in self.profiles.items()} if self.profiles is not None else None,
             profile_depth_axes_m={key: value.copy() for key, value in self.profile_depth_axes_m.items()} if self.profile_depth_axes_m is not None else None,
             mask=self.mask.copy() if self.mask is not None else None,
@@ -133,6 +135,7 @@ class TransformData:
             coordinate_tolerances_mm=copy.deepcopy(self.coordinate_tolerances_mm),
             depth_mm=self.depth_mm[m] if self.depth_mm is not None else None,
             amplitude=self.amplitude[m] if self.amplitude is not None else None,
+            spectra=self.spectra[m] if self.spectra is not None else None,
             profiles={key: value[m] for key, value in self.profiles.items()} if self.profiles is not None else None,
             profile_depth_axes_m={key: value.copy() for key, value in self.profile_depth_axes_m.items()} if self.profile_depth_axes_m is not None else None,
             mask=None,
@@ -325,6 +328,7 @@ class TransformedView:
             coordinate_tolerances_mm=ds.coordinate_tolerances_mm,
             depth_mm=ds.depth_mm.copy() if ds.has_peaks else None,
             amplitude=ds.amplitude.copy() if ds.has_peaks else None,
+            spectra=ds.spectra,
             profiles=ds.profiles,
             profile_depth_axes_m=ds.profile_depth_axes_m,
             mask=None,

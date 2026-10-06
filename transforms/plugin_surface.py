@@ -265,6 +265,8 @@ class Superficie:
             result.depth_mm = result.depth_mm[mask]
         if result.amplitude is not None:
             result.amplitude = result.amplitude[mask]
+        if result.spectra is not None:
+            result.spectra = result.spectra[mask]
         if result.profiles is not None:
             result.profiles = {key: values[mask] for key, values in result.profiles.items()}
         result.mask = None

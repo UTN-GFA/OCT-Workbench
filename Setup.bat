@@ -18,6 +18,6 @@ if errorlevel 1 (
     exit /b 1
 )
 
-python oct_workbench_gui.py
+python main.py
 set "EXIT_CODE=%ERRORLEVEL%"
 endlocal & exit /b %EXIT_CODE%

@@ -1,1 +1,1 @@
-"""Componentes auxiliares de la interfaz Qt del OCT Workbench."""
+"""Ventana principal y componentes de la interfaz Qt de OCT Workbench."""
